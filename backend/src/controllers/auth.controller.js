@@ -39,8 +39,13 @@ async function registerController(req,res){
         process.env.JWT_SECRET,
         { expiresIn: "1d" }
     )
+    
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000  // 1 day in ms
+    })
     res.status(201).json({
         message: "User registered succesfully",
         user:{
@@ -84,7 +89,11 @@ async function loginController (req,res){
         {expiresIn: "1d"}
     )
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60 * 1000  // 1 day in ms
+    })
 
     res.status(200).json({
         message: "user logged in succesfully",

@@ -16,4 +16,9 @@ authRouter.post('/login',authController.loginController )
  */
 authRouter.get("/get-me", identifyUser,authController.getMeController)
 
+authRouter.post("/logout", (req, res) => {
+    res.clearCookie("token")
+    res.status(200).json({ message: "Logged out successfully" })
+})
+
 module.exports = authRouter

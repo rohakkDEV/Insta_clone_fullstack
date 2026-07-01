@@ -49,7 +49,9 @@ const Login = () => {
                         placeholder='Enter password' />
                     <button className='button primary-button' >Login</button>
                 </form>
-                <p>Don't have an account ? <Link to={"/register"} >Create One.</Link></p>
+            </div>
+            <div className="form-footer">
+                Don't have an account? <Link className='toggleAuthForm' to="/register">Sign up.</Link>
             </div>
         </main>
     )

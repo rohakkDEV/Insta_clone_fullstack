@@ -140,6 +140,48 @@ async function rejectFollowRequestController(req, res) {
     })
 }
 
+async function getFollowRequestsController(req, res) {
+    const followeeUsername = req.user.username
+
+    const requests = await followModel.find({
+        followee: followeeUsername,
+        status: "pending"
+    })
+
+    res.status(200).json({
+        message: "Pending follow requests fetched",
+        requests
+    })
+}
+
+async function getFollowersController(req, res) {
+    const { username } = req.params
+
+    const followers = await followModel.find({
+        followee: username,
+        status: "accepted"
+    })
+
+    res.status(200).json({
+        message: "Followers fetched",
+        followers
+    })
+}
+
+async function getFollowingController(req, res) {
+    const { username } = req.params
+
+    const following = await followModel.find({
+        follower: username,
+        status: "accepted"
+    })
+
+    res.status(200).json({
+        message: "Following fetched",
+        following
+    })
+}
+
 
 
 module.exports = {
@@ -147,4 +189,7 @@ module.exports = {
     unfollowUserController,
     acceptFollowRequestController,
     rejectFollowRequestController,
+    getFollowRequestsController,
+    getFollowingController,
+    getFollowersController,
 }
